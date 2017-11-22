@@ -15,7 +15,7 @@ def index(request):
 
 def create(request):
     if len(request.POST['quoted_by'].strip()) < 2:
-        messages.error(request, 'Enter valid Author Name of this Quote')
+        messages.error(request, 'Enter a valid Author Name of this Quote')
         return redirect('/main/')
     if len(request.POST['message'].strip()) < 10:
         messages.error(request, 'Message should be at least 10 chars long')
