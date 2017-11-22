@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        fieldset{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h2>Posts By : {{ user.alias }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="/main/">Dashboard</a>  | <a href="/logout">Logout</a></h2>
+    <h3>Count :{{ count }} </h3>
+    {%for quote in myquotes%}
+    <p><span style="color:red">{{quote.quoted_by}}</span> : {{quote.message}}</p>
+    {%endfor%}
+</body>
+</html>

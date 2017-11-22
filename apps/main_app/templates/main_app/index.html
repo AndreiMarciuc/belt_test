@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        fieldset,h6{
+            display: inline-block;
+            
+            
+        }
+        .scroll{
+            overflow: auto;
+            height: 550px;
+            max-height: 550px;
+            
+        }
+    </style>
+</head>
+<body>
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    <h2>Welcome : {{request.session.alias}} !&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="/logout">Logout</a></h2> 
+    <fieldset style="width:400px  " class="scroll"  >
+        <h3>Quatable Quotes</h3>
+        {% for quote in allquotes %}
+        <fieldset style="width:370px  " >
+            <p> <h4> {{quote.quoted_by}} &nbsp;:  {{quote.message}}</h4></p>
+            <h6>Posted by: <a href="/main/show/{{quote.owner.id}}"> {{quote.owner.alias}} </a></h6> 
+            <button> <a href="/main/add/{{quote.id}}">Add to My List </a> </button>
+        </fieldset>
+        {% endfor %}
+    </fieldset>
+
+    
+    <fieldset style="width:400px  "  class="scroll" >
+        <h3>Your Favorites</h3>
+        {%for quote in cur_user.favorites.all %}
+        
+        <fieldset style="width:370px  " >
+            <p> <h4> {{quote.quoted_by}} &nbsp;:  {{quote.message}}</h4></p>
+            <h6>Posted by: <a href="/main/show/{{quote.owner.id}}"> {{quote.owner.alias}} </a></h6> 
+            <button> <a href="/main/remove/{{quote.id}}">Remove From My List </a> </button>
+        </fieldset>
+        
+        {%endfor%}
+    </fieldset> <br>
+
+    <fieldset >
+        <legend><h3>Contribute a Quote:</h3></legend>
+        
+        <form action="/main/create" method="post">
+            {%csrf_token%}
+        Quoted By: <br>
+        <input type="text" name="quoted_by"> <br> <br>
+        Messages: <br>
+        <textarea name="message" id="" cols="30" rows="8"></textarea> <br><br>
+        <input type="hidden" name='id'>
+        <input type="submit" value='Submit'>
+        </form>
+    </fieldset>
+</body>
+</html>
