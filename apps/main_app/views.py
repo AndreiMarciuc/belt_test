@@ -7,12 +7,10 @@ def index(request):
     cur_user = User.objects.get(id=request.session['id'])
     context={
         'cur_user': User.objects.get(id=request.session['id']),
-        
         'myquotes': cur_user.quotes.all(),
         'allquotes': Quote.objects.all(),
     }
 
-    
     return render(request,'main_app/index.html',context)
 
 def create(request):
@@ -37,17 +35,13 @@ def removeQuote(request,id):
     quote = Quote.objects.get(id=id)
     user = User.objects.get(id=request.session['id'])
     user.favorites.remove(quote)
-    # quote.users.remove(user)
     return redirect('/main/')
 
 def showUser(request,id):
-    
     user = User.objects.get(id=id)
-
     context = {
         'myquotes': user.quotes.all(),
         'user' : user,
         'count' : len(user.quotes.all())
-
     }
     return render(request, "main_app/show.html", context)
